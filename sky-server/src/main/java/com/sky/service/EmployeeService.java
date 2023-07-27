@@ -32,4 +32,31 @@ public interface EmployeeService {
      * @return: 
      **/
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /*
+     * @description:启动禁用员工账号
+     * @author:  HZP
+     * @date: 2023/7/27 17:37
+     * @param:
+     * @return:
+     **/
+    void startOrStop(Integer status, Long id);
+
+    /*
+     * @description:根据id查询员工
+     * @author:  HZP
+     * @date: 2023/7/27 19:07
+     * @param: 
+     * @return: 
+     **/
+    Employee getById(Long id);
+
+    /*
+     * @description:根据id修改员工信息
+     * @author:  HZP
+     * @date: 2023/7/27 19:18
+     * @param: 
+     * @return: 
+     **/
+    void update(EmployeeDTO employeeDTO);
 }

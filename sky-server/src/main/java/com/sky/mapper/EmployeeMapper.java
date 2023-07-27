@@ -32,5 +32,32 @@ public interface EmployeeMapper {
     void insert(Employee employee);
 
     //由于我们需要用到动态sql，所以我们就不用注解方式，而是将sql语句写到（EmployeeMapper.xml）映射文件中
+    /*
+     * @description:分页查询
+     * @author:  HZP
+     * @date: 2023/7/27 17:41
+     * @param: [employeePageQueryDTO]
+     * @return: com.github.pagehelper.Page<com.sky.entity.Employee>
+     **/
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    //由于我们需要用到动态sql，所以我们就不用注解方式，而是将sql语句写到（EmployeeMapper.xml）映射文件中
+    /*
+     * @description:根据id修改员工信息
+     * @author:  HZP
+     * @date: 2023/7/27 17:40
+     * @param: [employee]
+     * @return: void
+     **/
+    void update(Employee employee);
+
+    /*
+     * @description:根据id查询员工
+     * @author:  HZP
+     * @date: 2023/7/27 19:09
+     * @param: 
+     * @return: 
+     **/
+    @Select("select * from employee where id = #{id}")
+    Employee getById(Long id);
 }

@@ -108,4 +108,57 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(page.getTotal(),page.getResult());
     }
 
+    @Override
+    /*
+     * @description:启动禁用员工账号
+     * @author:  HZP
+     * @date: 2023/7/27 17:38
+     * @param: [status, id]
+     * @return: void
+     **/
+    public void startOrStop(Integer status, Long id) {
+        Employee employee = Employee.builder()
+                .id(id)
+                .status(status)
+                .build();
+        employeeMapper.update(employee);
+    }
+
+    @Override
+    /*
+     * @description:根据id查询员工
+     * @author:  HZP
+     * @date: 2023/7/27 19:07
+     * @param: [id]
+     * @return: com.sky.entity.Employee
+     **/
+    public Employee getById(Long id) {
+        Employee employee=employeeMapper.getById(id);
+        //由于通过employeeMapper.getById(id);也同时会获取到密码，所以我们为了保险起见，通过****覆盖真实密码
+        employee.setPassword("****");
+        return employee;
+    }
+
+    @Override
+    /*
+     * @description:修改员工信息
+     * @author:  HZP
+     * @date: 2023/7/27 19:19
+     * @param: [employeeDTO]
+     * @return: void
+     **/
+    public void update(EmployeeDTO employeeDTO) {
+        // update employee set ... where id = ?
+        //由于我们在修改员工状态时,employeeMapper.update()是通用的修改方法，
+        // 并且传入的参数是Employee类，所以要进行类的属性转发，利用 BeanUtils.copyProperties()
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
+
+        //设置修改人和修改时间
+        //BaseContext.getCurrentId()获取当时登录人的id信息
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateTime(LocalDateTime.now());
+        employeeMapper.update(employee);
+    }
+
 }

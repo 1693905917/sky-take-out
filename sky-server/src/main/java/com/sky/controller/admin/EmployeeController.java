@@ -36,20 +36,8 @@ public class EmployeeController {
     private JwtProperties jwtProperties;
 
 
-    /*
-     * @description:员工分页查询
-     * @author:  HZP
-     * @date: 2023/7/27 16:02
-     * @param:
-     * @return:
-     **/
-    @GetMapping("/page")
-    @ApiOperation("员工分页查询")
-    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
-        log.info("分页查询：{}",employeePageQueryDTO);
-        PageResult pageResult= employeeService.pageQuery(employeePageQueryDTO);
-        return Result.success(pageResult);
-    }
+
+
 
     /**
      * 登录
@@ -99,20 +87,79 @@ public class EmployeeController {
     }
 
     /*
-     * @description:新增员工
+     * @description:新增员工信息
      * @author:  HZP
      * @date: 2023/7/27 15:09
      * @param:
      * @return:
      **/
     @PostMapping
-    @ApiOperation("新增员工")
+    @ApiOperation("新增员工信息")
     public Result<String> save(@RequestBody EmployeeDTO employeeDTO){
         //Log.info中的{}是个占位符，employeeDTO将会在{}这个位置展示数据
         log.info("新增员工:{}",employeeDTO);
         employeeService.save(employeeDTO);
         return Result.success();
     }
+
+    /*
+     * @description:分页查询员工信息
+     * @author:  HZP
+     * @date: 2023/7/27 16:02
+     * @param:
+     * @return:
+     **/
+    @GetMapping("/page")
+    @ApiOperation("分页查询员工信息")
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
+        log.info("分页查询：{}",employeePageQueryDTO);
+        PageResult pageResult= employeeService.pageQuery(employeePageQueryDTO);
+        return Result.success(pageResult);
+    }
+
+    /*
+     * @description:启用禁用员工账号
+     * @author:  HZP
+     * @date: 2023/7/27 16:02
+     * @param:
+     * @return:
+     **/
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工账号")
+    public Result<String> startOrStop(@PathVariable("status") Integer status,Long id){
+        log.info("启用禁用员工账号：{}，{}",status,id);
+        employeeService.startOrStop(status,id);
+        return Result.success();
+    }
+
+    /*
+     * @description:根据ID查询员工信息
+     * @author:  HZP
+     * @date: 2023/7/27 19:04
+     * @param:
+     * @return:
+     **/
+    @GetMapping("/{id}")
+    @ApiOperation("根据ID查询员工信息")
+    public Result<Employee> getById(@PathVariable("id") Long id){
+        return Result.success(employeeService.getById(id));
+    }
+
+    /*
+     * @description:编辑员工信息
+     * @author:  HZP
+     * @date: 2023/7/27 19:18
+     * @param:
+     * @return:
+     **/
+    @PutMapping
+    @ApiOperation("编辑员工信息")
+    public Result<String> update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工：{}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
+
 
 
 

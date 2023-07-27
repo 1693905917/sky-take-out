@@ -51,6 +51,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
                 .select()
+                //指定生产接口需要扫描的包，简单来说：通过指定扫指哪个包下即可生成对应的接口
                 .apis(RequestHandlerSelectors.basePackage("com.sky.controller"))
                 .paths(PathSelectors.any())
                 .build();
@@ -58,10 +59,11 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     }
 
     /**
-     * 设置静态资源映射
+     * 设置静态资源映射 设置静态资单映射：因为我们的表现层是使用的是我springMVC框架，如果不设置这些静态资源权限，是无法访问到接口界面的
      * @param registry
      */
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        //我们生成的接口界面叫doc.htmL并且会将接口界面存放在/META-INF/resources/资源路径下
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }

@@ -1,5 +1,7 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -28,4 +30,7 @@ public interface EmployeeMapper {
             "VALUES " +"(#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime},#{updateTime},#{createUser}, #{updateUser})")
     //注意：数据库的id_number.与employee类中的idNumber不一样
     void insert(Employee employee);
+
+    //由于我们需要用到动态sql，所以我们就不用注解方式，而是将sql语句写到（EmployeeMapper.xml）映射文件中
+    Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 }

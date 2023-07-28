@@ -80,6 +80,13 @@ public class DishServiceImpl implements DishService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
+    /*
+     * @description:菜品批量删除
+     * @author:  HZP
+     * @date: 2023/7/28 19:59
+     * @param:
+     * @return:
+     **/
     @Override
     @Transactional
     public void deleteBatch(List<Long> ids) {
@@ -103,6 +110,57 @@ public class DishServiceImpl implements DishService {
             dishMapper.deleteById(id);
             //删除口味表中的数据
             dishFlavorMapper.deleteByDishId(id);
+        }
+    }
+
+    /*
+     * @description:根据id查询菜品和关联的口味数据
+     * @author:  HZP
+     * @date: 2023/7/28 19:59
+     * @param:
+     * @return:
+     **/
+    @Override
+    public DishVO getByIdWithFlavor(Long id) {
+        //查询菜品表
+        Dish dish = dishMapper.getById(id);
+
+        //查询关联的口味
+        List<DishFlavor> dishFlavorList=dishFlavorMapper.getByDishId(id);
+
+        //将上面查询到的数据封装DishVO中
+        DishVO dishVO = new DishVO();
+        BeanUtils.copyProperties(dish,dishVO);
+        dishVO.setFlavors(dishFlavorList);
+        return dishVO;
+    }
+
+    /*
+     * @description:根据id修改菜品和关联的口味
+     * @author:  HZP
+     * @date: 2023/7/28 19:58
+     * @param: 
+     * @return: 
+     **/
+    @Override
+    @Transactional
+    public void updateWithFlavor(DishDTO dishDTO) {
+        //修改菜品表基本信息,也就是除了口味字段,为了方便我们用Dish类，而比赛DishDTO
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO,dish);
+        //修改菜品表基本信息
+        dishMapper.update(dish);
+        //对于删除口味数据，有三种情况：1.在原本口味数据上删除 2.我全部删除  3.我在原本口味数据上添加
+        //其实对于上面这三种情况：我们都可以使用：先把原始口味数据都清干净 然后重新获取一遍口味数据即可
+        //删除原有的口味数据
+        dishFlavorMapper.deleteByDishId(dishDTO.getId());
+        //重新插入口味数据
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if(flavors != null && flavors.size() > 0){
+            flavors.forEach(dishFlavor -> {
+                dishFlavor.setDishId(dishDTO.getId());
+            });
+            dishFlavorMapper.insertBatch(flavors);
         }
     }
 }

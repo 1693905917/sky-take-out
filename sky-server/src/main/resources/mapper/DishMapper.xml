@@ -10,4 +10,22 @@
         values
         (#{status}, #{name}, #{categoryId}, #{price}, #{image}, #{description}, #{createTime}, #{updateTime},#{createUser}, #{updateUser})
     </insert>
+
+<!--    这个要与category与dish两个表category_id=id进行连接来获取category表的name，
+        注意：category与dish两个表的name字段是一样的，所以我们约定给category表的name字段取个别名：categoryName-->
+    <select id="pageQuery" resultType="com.sky.vo.DishVO">
+        select d.*,c.name categoryName from dish d left join category c on d.category_id = c.id
+        <where>
+                <if test="name != null">
+                   and d.name like concat('%',#{name},'%')
+                </if>
+                <if test="categoryId != null">
+                   and d.category_id = #{categoryId}
+                </if>
+                <if test="status != null">
+                   and d.status = #{status}
+                </if>
+        </where>
+        order by d.create_time desc
+    </select>
 </mapper>

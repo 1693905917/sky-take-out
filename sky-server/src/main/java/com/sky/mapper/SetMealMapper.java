@@ -6,6 +6,7 @@ import com.sky.dto.SetMealPageQueryDTO;
 import com.sky.entity.SetMeal;
 import com.sky.enumeration.OperationType;
 import com.sky.vo.SetMealVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -43,4 +44,26 @@ public interface SetMealMapper {
      * @return
      */
     Page<SetMealVO> pageQuery(SetMealPageQueryDTO setMealPageQueryDTO);
+
+    /**
+     * 根据id查询套餐
+     * @param id
+     * @return
+     */
+    @Select("select * from setmeal where id = #{id}")
+    SetMeal getById(Long id);
+
+    /**
+     * 根据id删除套餐
+     * @param setMealId
+     */
+    @Delete("delete from setmeal where id = #{id}")
+    void deleteById(Long setMealId);
+
+    /**
+     * 根据套餐id删除套餐和菜品的关联关系
+     * @param setMealId
+     */
+    @Delete("delete from setmeal_dish where setmeal_id = #{setMealId}")
+    void deleteBySetMealId(Long setMealId);
 }

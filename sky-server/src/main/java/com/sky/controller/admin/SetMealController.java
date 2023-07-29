@@ -1,16 +1,15 @@
 package com.sky.controller.admin;
 
 import com.sky.dto.SetMealDTO;
+import com.sky.dto.SetMealPageQueryDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.SetMealService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @BelongsProject: sky-take-out
@@ -40,6 +39,20 @@ public class SetMealController {
         setMealService.saveWithDish(setMealDTO);
         return Result.success();
     }
+
+    /**
+     * 分页查询
+     * @param setMealPageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("分页查询")
+    public Result<PageResult> page(SetMealPageQueryDTO setMealPageQueryDTO) {
+        PageResult pageResult = setMealService.pageQuery(setMealPageQueryDTO);
+        return Result.success(pageResult);
+    }
+
+
 
 
 }

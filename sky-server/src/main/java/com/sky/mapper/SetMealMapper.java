@@ -1,8 +1,11 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
+import com.sky.dto.SetMealPageQueryDTO;
 import com.sky.entity.SetMeal;
 import com.sky.enumeration.OperationType;
+import com.sky.vo.SetMealVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -33,4 +36,11 @@ public interface SetMealMapper {
      */
     @AutoFill(OperationType.INSERT)
     void insert(SetMeal setMeal);
+
+    /**
+     * 分页查询
+     * @param setMealPageQueryDTO
+     * @return
+     */
+    Page<SetMealVO> pageQuery(SetMealPageQueryDTO setMealPageQueryDTO);
 }

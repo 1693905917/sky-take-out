@@ -1,12 +1,17 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.dto.SetMealDTO;
+import com.sky.dto.SetMealPageQueryDTO;
 import com.sky.entity.SetMeal;
 import com.sky.entity.SetMealDish;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetMealDishMapper;
 import com.sky.mapper.SetMealMapper;
+import com.sky.result.PageResult;
 import com.sky.service.SetMealService;
+import com.sky.vo.SetMealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +63,21 @@ public class SetMealServiceImpl implements SetMealService {
 
         //保存套餐和菜品的关联关系
         setMealDishMapper.insertBatch(setMealDishes);
+    }
+
+    /**
+     * 分页查询
+     * @param setMealPageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult pageQuery(SetMealPageQueryDTO setMealPageQueryDTO) {
+
+        int pageNum = setMealPageQueryDTO.getPage();
+        int pageSize = setMealPageQueryDTO.getPageSize();
+
+        PageHelper.startPage(pageNum, pageSize);
+        Page<SetMealVO> page = setMealMapper.pageQuery(setMealPageQueryDTO);
+        return new PageResult(page.getTotal(), page.getResult());
     }
 }

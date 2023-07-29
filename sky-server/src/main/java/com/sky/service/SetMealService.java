@@ -39,4 +39,11 @@ public interface SetMealService {
      * @param setMealDTO
      */
     void update(SetMealDTO setMealDTO);
+
+    /**
+     * 套餐起售、停售
+     * @param status
+     * @param id
+     */
+    void startOrStop(Integer status, Long id);
 }

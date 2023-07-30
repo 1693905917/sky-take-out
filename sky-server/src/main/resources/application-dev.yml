@@ -11,3 +11,9 @@ sky:
     access-key-id:  LTAI5tJ1dKEEzRHoxytDMkW4
     access-key-secret: aZVvqlGrKi4Re5CbHT15pt9ajpbxeD
     bucket-name: hzp-sky-take-out
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    #redis自带了16个数据库 分别是0~15  默认数据库是0
+    database: 10

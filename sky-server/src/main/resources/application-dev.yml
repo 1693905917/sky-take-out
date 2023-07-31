@@ -17,3 +17,6 @@ sky:
     password: 123456
     #redis自带了16个数据库 分别是0~15  默认数据库是0
     database: 10
+  wechat:
+    appid: wxf0487f65e7b9ffe4
+    secret: 7dad3be3f289eaca09ee2372296efc7f

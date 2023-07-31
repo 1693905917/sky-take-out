@@ -41,6 +41,7 @@ public class HttpClientUtil {
         CloseableHttpResponse response = null;
 
         try{
+            //由于get请求也会有请求参数  这些就是将Map<String,String> paramMap中存储的参数进行拼接
             URIBuilder builder = new URIBuilder(url);
             if(paramMap != null){
                 for (String key : paramMap.keySet()) {

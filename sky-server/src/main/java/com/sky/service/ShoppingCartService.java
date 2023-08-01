@@ -24,4 +24,13 @@ public interface ShoppingCartService {
      * @return: 
      **/
     List<ShoppingCart> showShoppingCart();
+
+    /*
+     * @description:清空购物车
+     * @author:  HZP
+     * @date: 2023/8/1 13:43
+     * @param: 
+     * @return: 
+     **/
+    void cleanShoppingCart();
 }

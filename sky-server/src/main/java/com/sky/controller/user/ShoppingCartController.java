@@ -50,4 +50,17 @@ public class ShoppingCartController {
         return Result.success(shoppingCartService.showShoppingCart());
     }
 
+    /*
+     * @description:清空购物车
+     * @author:  HZP
+     * @date: 2023/8/1 13:42
+     * @param: 
+     * @return: 
+     **/
+    @DeleteMapping("/clean")
+    @ApiOperation("清空购物车")
+    public Result<String> clean(){
+        shoppingCartService.cleanShoppingCart();
+        return Result.success();
+    }
 }

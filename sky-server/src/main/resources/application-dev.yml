@@ -20,3 +20,15 @@ sky:
   wechat:
     appid: wxf0487f65e7b9ffe4
     secret: 7dad3be3f289eaca09ee2372296efc7f
+    #以下操作要以商家身份去获取
+    mchid: 1561414331
+    mchSerualNo: 4B3B3DC35414AD50B1B755BAF8DE9CC7CF407606
+    #商户私钥文件apiclient key.pem的文件目录地址
+    privateKeyFilePath:
+    #随便写的
+    apiV3Key: CZBK51236435wxpay435434323FFDuv3
+    #微信支付平台证书文件：wechatpay 166D96F876F45C7D07CE98952A96EC980368ACFC.pem的目录地址
+    weChatPayCertFilePath:
+    #https://3cac0cc7.r8.cpolar.top/:是外面公网的ip地址
+    notifyUrl: https://3cac0cc7.r8.cpolar.top/notify/paySuccess
+    refundNotifyUrl: https://3cac0cc7.r8.cpolar.top/notify/refundSuccess

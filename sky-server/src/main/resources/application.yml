@@ -49,7 +49,6 @@ sky:
     user-ttl: 7200000
     # 设置前端传递过来的令牌名称
     user-token-name: authentication
-
   alioss:
     endpoint: ${sky.alioss.endpoint}
     access-key-id: ${sky.alioss.access-key-id}
@@ -66,3 +65,8 @@ sky:
     weChatPayCertFilePath:  ${sky.wechat.weChatPayCertFilePath}
     notifyUrl: ${sky.wechat.notifyUrl}
     refundNotifyUrl: ${sky.wechat.refundNotifyUrl}
+
+  shop:
+    address: 北京市海淀区上地十街10号
+  baidu:
+    ak: tfwo9Om5M7t2hTg9sWHhqOPHSfue11hf

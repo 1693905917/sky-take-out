@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -69,5 +70,14 @@ public interface OrderMapper {
      **/
     @Select("select * from orders where status = #{status} and order_time < #{time}")
     List<Orders> getByStatusAndOrderTimeLT(Integer status, LocalDateTime time);
+
+    /*
+     * @description:根据动态条件统计营业额
+     * @author:  HZP
+     * @date: 2023/8/4 21:30
+     * @param: 
+     * @return: 
+     **/
+    Double sumByMap(Map map);
 }
 

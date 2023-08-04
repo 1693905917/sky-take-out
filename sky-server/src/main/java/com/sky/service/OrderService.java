@@ -106,4 +106,13 @@ public interface OrderService {
      * @param id
      */
     void complete(Long id);
+
+    /*
+     * @description:用户催单
+     * @author:  HZP
+     * @date: 2023/8/4 14:51
+     * @param: 
+     * @return: 
+     **/
+    void reminder(Long id);
 }

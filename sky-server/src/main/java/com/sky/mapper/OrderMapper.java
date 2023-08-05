@@ -79,5 +79,14 @@ public interface OrderMapper {
      * @return: 
      **/
     Double sumByMap(Map map);
+
+    /*
+     * @description:根据动态条件统计订单数量
+     * @author:  HZP
+     * @date: 2023/8/5 9:16
+     * @param: 
+     * @return: 
+     **/
+    Integer countByMap(Map map);
 }
 
